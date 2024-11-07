@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./javascript/Vue3.js"></script>
+    <title>Agenda de Contactos</title>
+</head>
+<body>
+    <header>
+        <h1>Mi Agenda de Contactos</h1>
+    </header>
+    <section id="seccion">
+        <article>
+            <table>
+                <thead>><!--es una etiqueta que agrupa el contenido del encabezado de una tabla-->
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Categoría</th>
+                        <th>Acciones</th><!-- th definir un encabezado de tabla.-->
+                        <th>Mensajes/Llamadas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(contacto, index) in contactos" :key="index"><!-- tr define una nueva fila en la tabla-->
+                        <td>{{ contacto.nombre }}</td>
+                        <td>{{ contacto.telefono }}</td>
+                        <td>{{ contacto.categoria }}</td>
+                        <td><!-- definir una celda de datos en una tabla-->
+                            <button @click="llamarContacto(index)">📞</button>
+                            <button @click="enviarMensaje(index)">📩</button>
+                            <button @click="eliminarContacto(index)">🗑️</button>
+                        </td>
+                        <td>{{ contacto.mensajes }} mensajes, {{ contacto.llamadas }} llamadas</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="totales">
+                <h4>Total Contactos: {{ totalContactos }}</h4>
+                <h4>Total Llamadas: {{ totalLlamadas }}</h4>
+                <h4>Total Mensajes: {{ totalMensajes }}</h4>
+            </div>
+        </article>
+        <fieldset class="col-6"><!--se utiliza para agrupar elementos relacionados dentro de un formulario HTML.
+             Esto ayuda a organizar el formulario lógico y accesible.-->
+            <legend>Nuevo Contacto</legend><!--Crea un titulo en un grupo de campos de datos-->
+            Nombre:
+            <input v-model="nuevoNombre" type="text" placeholder="Nombre del contacto">
+            Teléfono:
+            <input v-model="nuevoTelefono" type="tel" placeholder="Número de teléfono">
+            Categoría:
+            <select v-model="nuevaCategoria"><!--selector de categorias-->
+                <option value="familiar">Familiar</option>
+                <option value="escuela">Escuela</option>
+                <option value="amigos">Amigos</option>
+                <option value="trabajo">Trabajo</option>
+            </select>
+            <button @click="agregarNuevoContacto()">Agregar</button>
+        </fieldset>
+    </section>
+    <script src="./javascript/script.js"></script>
+</body>
+</html>
